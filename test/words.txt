@@ -1,0 +1,8 @@
+hund#dog
+bil#car
+glass#ice cream
+katt#cat
+åsna#donkey
+banan#banana
+björn#bear
+

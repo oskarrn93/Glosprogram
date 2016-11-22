@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="se">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Responsive Header Nav">
+  <meta name="author" content="Oskar Rosén">
+  <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+  <link rel="stylesheet" href="glosprogram.css">
+  <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-38018646-4', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<title>Glosprogram</title>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand active" href="#">Glosprogram</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li class="active"><a href="#">Hem</a></li>-->
+                    <li><a href="#" id="btnAbout"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Om</a></li>
+                    <li><a href="#" id="btnAddWord"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Lägg till ord</a></li>
+                    <li><a href="#" id="btnChooseFile"><span class="glyphicon glyphicon-plus"></span> &nbsp; Läs från fil</a></li>
+                    <li><a href="#" id="btnShowWords"><span class="glyphicon glyphicon-th-list"></span> &nbsp; Visa alla glosor</a></li>
+                    <li><a href="#" id="btnSettings"><span class="glyphicon glyphicon-cog"></span> &nbsp; Inställningar</a></li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </nav>
+    <br>
+    <br>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+    <div class="container text-center">
+      <h1>Glosprogram</h1>
+      <p><a id="startProgramBtn" class="btn btn-primary btn-lg" href="#" role="button">Starta Glosprogram</a></p>
+    </div>
+    </div>
+
+    <hr>
+
+    <div class="container text-center">
+    <!-- Example row of columns -->
+    <div class="row">
+        <h2 id="guiwordsLeft"></h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h2 id="guiLang1">Lang1</h2>
+        <input type="text" class="form-control text-center" id="lang1Quizz" disabled>
+      </div>
+      <div class="col-md-6">
+        <h2 id="guiLang2">Lang2</h2>
+        <input type="text" class="form-control text-center" id="lang2Quizz" disabled>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <button type="button" class="btn btn-success btn-lg" id="btnNextWord" disabled> Nästa ord </button>
+    </div>
+    <hr>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+      <p class="text-center">&copy; Oskar Rosén 2016</p>
+    </footer>
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+    <script src="glosprogram.js"></script>
+
+    <script src="sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sweetalert/dist/sweetalert.css">
+
+    <!-- Begin Modal Add Word-->
+    <div class="modal fade" id="modalAddWord" tabindex="-1" role="dialog" aria-labelledby="modalAddWord" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Lägg till ord:</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong id="guimodalAddWordLang1">Lang1</strong>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="text" class="form-control" name="modalAddWordLang1" placeholder="Skriv det svenska ordet här" id="modalAddWordLang1" autofocus>
+                        </div>
+                    </p>
+                    <p>
+                        <strong id="guimodalAddWordLang2">Lang2</strong>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="text" class="form-control" name="modalAddWordLang2" placeholder="Skriv det engelska ordet här" id="modalAddWordLang2">
+                        </div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"> Stäng </button>
+                    <button type="button" class="btn btn-success btn-lg" id="modalAddWordAddBtn"> Lägg till </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Add Word-->
+
+    <!-- Begin Modal Choose File-->
+    <div class="modal fade" id="modalChooseFile" tabindex="-1" role="dialog" aria-labelledby="modalChooseFile" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Välj fil att läsa från:</h4>
+                </div>
+                <div class="center">
+                    <br>
+                     &nbsp; <input type="file" id="fileInput">
+                    <br>
+                    <br>
+                </div>
+
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary" data-dismiss="modal" id="modalSMPQCancelBtn"> Cancel </button>-->
+                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" > Avbryt </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Choose File -->
+
+    <!-- Begin Modal Show Words -->
+    <div class="modal fade" id="modalShowWords" tabindex="-1" role="dialog" aria-labelledby="modalShowWords" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Lista över glosor:</h4>
+                    <br>
+                    <div>
+                      <p id="modalShowWordsLanguage1" class="alignleft">Lang1</p>
+                      <p id="modalShowWordsLanguage2" class="alignright">Lang2</p>
+                      <div style="clear: both;"></div>
+                    </div>
+
+                </div>
+                <div class="list-group text-center" id="modalShowWordsListOfWords">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger disabled" id="modalShowWordsRemoveSelectedWord"> Radera vald glosa </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" > Stäng </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Show Words -->
+
+    <!-- Begin Modal Settings -->
+    <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="modalSettings" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Inställningar:</h4>
+                </div>
+                <div class="text-center">
+                  <br>
+                  <button type="button" class="btn btn-danger" id="modalSettingsRemoveAllWords"> Radera alla glosor </button>
+
+                  <hr>
+                  <h4>Språkinställningar</h4>
+                  <div>
+                    <p>Språk 1<p>
+                    <input type="text" class="text-center" id="modalSettingsLang1">
+                    <p>Språk 2<p>
+                    <input type="text" class="text-center" id="modalSettingsLang2">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-lg" id="modalSettingsSaveBtn" > Spara </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" > Stäng </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Settings -->
+
+    <!-- Begin Modal Wrong Words -->
+    <div class="modal fade" id="modalResult" tabindex="-1" role="dialog" aria-labelledby="modalResult" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title">Resultat:</h4>
+                    <h5 id="modalResultTitle"></h5>
+                </div>
+                <div class="list-group text-center" id="modalResultListCorrect">
+                  <h4>Rätt svar:</h4>
+                </div>
+                <div class="list-group text-center" id="modalResultListWrong">
+                  <h4>Fel svar:</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" > Stäng </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Wrong Words  -->
+
+
+</body>
+</html>
